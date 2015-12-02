@@ -1,0 +1,29 @@
+//- ./views/dateView.jade
+extends ./layout.jade
+
+block title
+  title
+    if !title
+      | Today's Games!
+    else
+      = title
+
+block content
+  div.container
+    h1
+      if !title
+        | Today's Games!
+      else
+        = title
+    p Games for #{date} (in the #{season} season)
+    if(games)
+      table
+        each game in games
+          tr
+            td #{game.teams[0].awayTeam}
+            td at
+            td #{game.teams[1].homeTeam}
+    //- #{} is jade interpreter of variables
+    //- {{ }} is angular interpreting the data
+    
+    include ./partials/dateView.jade

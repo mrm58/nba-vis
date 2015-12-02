@@ -1,0 +1,21 @@
+//- ./views/layout.jade
+doctype html
+html(ng-app="bewd.nba-viz")
+  head
+    include ./includes/bower_bootstrap.jade
+    //include ./includes/header.jade
+    base(href="/")
+    block title
+      title NBA Game Visualizer!
+
+  body
+    //include ./includes/flash.jade
+    //include ./mixins/forLoggedInUser.jade
+    //-
+      +forLoggedInUser
+        div.container-fluid
+          div.alert.alert-info
+            p You are currently logged in as #{currentUser.username}
+    div.container-fluid
+      div.well
+        block content
