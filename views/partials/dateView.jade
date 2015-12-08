@@ -1,10 +1,35 @@
-//- ./views/partials/dateView.jade
-p Games for #{date}
-div
-  ul
-    li(ng-repeat="board in boards.boards track by board.id")
-      a(href="#/game/{{ board.id }}") Game {{ '#' + board.id}}
 
-  div(ng-show="boards.selectedBoard")
-    p Game {{ '#' + boards.selectedBoard.id }}
-    tic-tac-toe-board(the-board="boards.selectedBoard.board")
+div.row
+  div.col-md-3
+    h4.text-left
+      a(href='/gamedate/{{vm.prevDate}}') {{vm.prev_long}}
+  div.col-md-6
+    h3.text-center Games for {{vm.long_date}}
+  div.col-md-3
+    h4.text-right
+      a(href='/gamedate/{{vm.nextDate}}') {{vm.next_long}}
+div(ng-show="vm.gameList")
+  table.table.table-condensed
+      tr.table-bordered.row(ng-init="row_ind = $index", ng-repeat="game in vm.gameList track by $index")
+        td.info.col-md-1 
+          div.text-left {{game.teams[0].awayTeam}}
+        td.info.col-md-1
+          div.text-center {{game.prd.s}}
+          div.text-center at
+        td.info.col-md-1
+          br
+          div.text-right {{game.teams[1].homeTeam}}
+
+        td.table-bordered.col-md-1(ng-repeat="qtr in game.qts track by $index")
+          div.text-center {{game.teams[0].scores[$index + 1]}}
+          div.text-center {{game.teams[1].scores[$index + 1]}}
+        td.table-bordered.col-md-1
+          div.text-center 
+            b {{game.teams[0].scores[0]}}
+          div.text-center 
+            b {{game.teams[1].scores[0]}}
+        td.table-bordered.col-md-2
+          a.text-center(href='/gameflow/{{game.gid}}') Game Flow Chart
+
+div(ng-show="vm.error")
+  h3.text-center {{vm.error}}

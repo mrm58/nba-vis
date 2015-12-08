@@ -49,18 +49,15 @@ app.use(cookieParser());
 //   }));
 // }
 
-// app.use(require('flash')());
+//app.use(require('flash')());
 
-// app.use(require('morgan')('dev'));    // what is this?
+app.use(require('morgan')('dev'));    // what is this?
 
 app.set('view engine', 'jade');
 
 var nba = require('nba');
 var Promise = require('bluebird');
 var nbaAPI = Promise.promisifyAll(nba.api);
-var rp = require('request-promise');
-var moment = require('moment');
-var baseUrl = 'http://data.nba.com/data/';
 
 /*********************************************************************
 *--------------------------------------------------------------------*
@@ -107,6 +104,15 @@ nbaAPI.teamYears, nbaAPI.teamYearsAsync
 *********************************************************************/
 
 /*********************************************************************
+commonAllPlayers
+  Request URL:http://stats.nba.com/stats/commonallplayers?IsOnlyCurrentSeason=0&LeagueID=00&Season=2015-16
+commonTeamRoster (Warriors example)
+  Request URL:http://stats.nba.com/stats/commonteamroster?LeagueID=00&Season=2015-16&TeamID=1610612744
+teamInfoCommon (Warriors example)
+  Request URL:http://stats.nba.com/stats/teaminfocommon?LeagueID=00&SeasonType=Regular+Season&TeamID=1610612744&season=2015-16
+*********************************************************************/
+
+/*********************************************************************
 rp('http://data.nba.com/data/json/nbacom/2015/gameline/20151129/games.json')
   .then(function(jsonResp) {
     todaysGames = jsonResp;
@@ -115,24 +121,7 @@ rp('http://data.nba.com/data/json/nbacom/2015/gameline/20151129/games.json')
     console.log('There was an error: ' + err);
   });
 *********************************************************************/
-// app.use(require('./routes'));
-app.get('/', function(req, res) {
-  var todaysGames = {};
-  var today = new Date();
-  var yyyy = moment().format('YYYY');
-  var mm = moment().format('MM');
-  var season = (mm > 9) ? yyyy : yyyy - 1;
-  var todaysDate = moment().format('YYYYMMDD');
-  var dateUrl = baseUrl + 'json/nbacom/' + season + '/gameline/' + todaysDate + '/games.json';
-
-  rp(dateUrl)
-    .then(function(jsonResp) {
-      res.render('dateView', {games: JSON.parse(jsonResp).games, date: todaysDate, season: season});
-    })
-    .catch(function(err) {
-      res.send('There was an error');
-    });
-});
+app.use(require('./routes'));
 
 // app.get('/', function(req, res) {
 //   var jsonObj = {nba: nba};

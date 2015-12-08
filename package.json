@@ -27,6 +27,7 @@
     "flash": "^1.1.0",
     "gulp-concat": "^2.6.0",
     "gulp-ng-annotate": "^1.1.0",
+    "gulp-uglify": "^1.5.1",
     "jade": "^1.11.0",
     "moment": "^2.10.6",
     "morgan": "^1.6.1",

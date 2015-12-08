@@ -55,16 +55,16 @@ gulp.task('watch:test:frontend', function(done) {
     }, done).start();
 });
 
-// var webFiles = ['js/**/*.js'];
-// var concat = require('gulp-concat');
-// var ngAnnotate = require('gulp-ng-annotate');
-// var uglify = require('gulp-uglify');
-// gulp.task('build', function() {
-//   return gulp.src(webFiles)
-//     .pipe(concat('tictactoe.js'))
-//     .pipe(ngAnnotate())
-//     .pipe(uglify())
-//     .pipe(gulp.dest('public/dist'));
-// });
+var webFiles = ['js/**/*.js'];
+var concat = require('gulp-concat');
+var ngAnnotate = require('gulp-ng-annotate');
+var uglify = require('gulp-uglify');
+gulp.task('build', function() {
+  return gulp.src(webFiles)
+    .pipe(concat('app.js'))
+    .pipe(ngAnnotate())
+    .pipe(uglify())
+    .pipe(gulp.dest('public/dist'));
+});
 
 gulp.task('default', ['server']);

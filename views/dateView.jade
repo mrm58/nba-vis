@@ -10,20 +10,18 @@ block title
 
 block content
   div.container
-    h1
-      if !title
-        | Today's Games!
-      else
-        = title
-    p Games for #{date} (in the #{season} season)
+    
     if(games)
-      table
-        each game in games
-          tr
-            td #{game.teams[0].awayTeam}
-            td at
-            td #{game.teams[1].homeTeam}
+      p Games for #{date} (in the #{season} season)
+        table.table-bordered.table-hover
+          each game in games
+            tr
+              td #{game.teams[0].awayTeam}
+              td at
+              td #{game.teams[1].homeTeam}
+    else if (error)
+      h3 #{error}
     //- #{} is jade interpreter of variables
     //- {{ }} is angular interpreting the data
     
-    include ./partials/dateView.jade
+    //include ./partials/dateView.jade
