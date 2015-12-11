@@ -1,3 +1,4 @@
+// ./views/partials/dateView.jade
 
 div.row
   div.col-md-3
@@ -13,11 +14,14 @@ div(ng-show="vm.gameList")
       tr.table-bordered.row(ng-init="row_ind = $index", ng-repeat="game in vm.gameList track by $index")
         td.info.col-md-1 
           div.text-left {{game.teams[0].awayTeam}}
+          div.text-left
+            img(src="{{vm.logoUrl}}{{game.teams[0].awayTeam}}.gif")
         td.info.col-md-1
           div.text-center {{game.prd.s}}
           div.text-center at
         td.info.col-md-1
-          br
+          div.text-right
+            img(src="{{vm.logoUrl}}{{game.teams[1].homeTeam}}.gif")
           div.text-right {{game.teams[1].homeTeam}}
 
         td.table-bordered.col-md-1(ng-repeat="qtr in game.qts track by $index")

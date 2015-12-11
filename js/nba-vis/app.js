@@ -1,6 +1,6 @@
 (function() {
 
-  angular.module('bewd.nba-vis', ['bewd.nba-vis.date-controller', 'ngRoute'])
+  angular.module('bewd.nba-vis', ['bewd.nba-vis.date-controller', 'bewd.nba-vis.flow-controller', 'ngRoute'])
     .config(
       function($locationProvider, $routeProvider) {
         $locationProvider.html5Mode(true);
@@ -30,15 +30,19 @@
           },
           bindToController: true
         }); //end $routeProvider.when('/gamedate/:requestedDate')
-        $routeProvider.when('/game', {
-          //
-        }); //end $routeProvider.when('/game')
-        $routeProvider.when('/login', {
-          templateUrl: '/partials/login',
-          controller: 'LoginController',
+        $routeProvider.when('/gameflow/:game_id', {
+          templateUrl: '/partials/gameFlow',
+          controller: 'FlowController',
           controllerAs: 'vm',
+          resolve: {
+            startValues: function($route) {
+              return {
+                game_id: $route.current.params.game_id
+              };
+            }
+          },
           bindToController: true
-        }); //end $routeProvider.when('/login')
+        }); //end $routeProvider.when('/gameflow/:game_id')
       } //end function($locationProvider, $routeProvider)
     ); //end config()
     //end angular.module('bewd.nba-vis')

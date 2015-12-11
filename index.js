@@ -104,6 +104,9 @@ nbaAPI.teamYears, nbaAPI.teamYearsAsync
 *********************************************************************/
 
 /*********************************************************************
+small images:
+  http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/gameinfo/teamlogos/small/DET.gif
+
 commonAllPlayers
   Request URL:http://stats.nba.com/stats/commonallplayers?IsOnlyCurrentSeason=0&LeagueID=00&Season=2015-16
 commonTeamRoster (Warriors example)

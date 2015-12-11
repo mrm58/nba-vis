@@ -4,13 +4,14 @@ var app = express.Router();
 
 var rp = require('request-promise');
 var moment = require('moment');
-var baseUrl = 'http://data.nba.com/data/';
+var dataUrl = 'http://data.nba.com/data/';
 
 app.get('/', function(req, res) {
   res.render('index');
 });
 
 app.use('/date', require('./routes/date'));
+app.use('/scoreflow', require('./routes/scoreflow'));
 
 
 app.get('/partials/:name', function(req, res) {
