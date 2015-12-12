@@ -1,14 +1,16 @@
 // ./views/partials/dateView.jade
 
 div(ng-show="vm.game_id")
-  h3 {{vm.game_id}}
-  h3 {{vm.gamecode}}
+  h3 {{vm.game_id}}, {{vm.gamecode}}
+  h3 {{vm.away_team}} at {{vm.home_team}}, {{vm.game_status}} (ID: {{vm.game_status_id}})
 
   table.table.table-condensed
       tr.table-bordered.row(ng-init="row_ind = $index", ng-repeat="score in vm.score_elements track by $index")
-        td.table-bordered.col-md-5 {{score.away_team}}
-        td.table-bordered.info.col-md-2  {{score.score}}
-        td.table-bordered.col-md-5 {{score.home_team}}
+        td.table-bordered.col-md-5 {{score.away_team_text}}
+        td.table-bordered.info.col-md-2 
+          | {{score.team_text}} {{score.score_text}} at {{score.timestamp}}
+          | {{score.away_score}}-{{score.home_score}} (Margin: {{score.margin}})
+        td.table-bordered.col-md-5 {{score.home_team_text}}
 
 div(ng-show="vm.error")
   h3 {{vm.error}}

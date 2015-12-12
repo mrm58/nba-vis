@@ -24,21 +24,51 @@ angular.module('bewd.nba-vis.flow-controller')
 
     vm.logoUrl = 'http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/gameinfo/teamlogos/small';
 
-    function loadScoreFlow(requestedDate) {
-      flowControllerService.getScoreFlow(requestedDate)
+    function loadScoreFlow(requestedGameID) {
+      flowControllerService.getScoreFlow(requestedGameID)
         .then(function(scoreFlowData) {
           $log.debug("getScoreFlow response is ", scoreFlowData);
 
           if (!scoreFlowData.error) {
             vm.score_elements = scoreFlowData.score_elements;
             vm.game_id = scoreFlowData.game_id;
+            vm.away_team = scoreFlowData.away_team;
+            vm.home_team = scoreFlowData.home_team;
             vm.gamecode = scoreFlowData.gamecode;
+            vm.game_status = scoreFlowData.game_status;
+            vm.game_status_id = scoreFlowData.game_status_id;
+            $log.debug('game status: ', vm.game_status);
+            if (vm.game_status_id == 3) {
+              $log.debug('cancelling the flowLoader');
+              $interval.cancel(flowLoader);
+            } else if (vm.game_status_id == 1) {
+              $log.debug('game hasn\'t started yet - cancelling loader and setting a new one for 10 minutes');
+              $interval.cancel(flowLoader);
+              flowLoader = $interval(reloadScoreFlow, 600000);
+            } else if (gameStarted == 2) {
+              $log.debug('game has started, but the loader is still set to 10 minutes');
+              $interval.cancel(flowLoader);
+              flowLoader = $interval(reloadScoreFlow, 10000);
+            }
           } else {
             vm.error = scoreFlowData.error;
           }
         });  //end function(scoreFlowData), end .then()
-    }  //end loadScoreFlow(requestedDate)
+    }  //end loadScoreFlow(requestedGameID)
 
-    loadScoreFlow(startValues.game_id);
+    function reloadScoreFlow() {
+      $log.debug('calling loadScoreFlow with game_id of ', game_id);
+      loadScoreFlow(game_id);
+    }
+
+    var flowLoader;
+    var gameStarted = 0;
+    var game_id = startValues.game_id;
+    loadScoreFlow(game_id);
+    flowLoader = $interval(reloadScoreFlow, 10000);
+
+    $scope.$on('$destroy', function() {
+      $interval.cancel(flowLoader);
+    });
 
   }

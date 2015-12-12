@@ -25,21 +25,44 @@ app.param('format', function checkFormat(req, res, next, param) {
 });
 
 app.get('/:requested_game', function(req, res) {
+  // getBoxScoreFromAPI(req.params.requested_game).then(function(boxScoreResp) {
+  //   //console.log('got a boxScoreResp');
+  //   return getGameInfoHTML(boxScoreResp.gamecode);
+  // }).then(function(gameInfoHTMLresp) {
+  //   console.log('got a gameinfo html resp');
+  //   //var gameInfoCheerioObj = loadHTMLforParsing(gameInfoHTMLresp);
+  //   return loadHTMLforParsing(gameInfoHTMLresp);
+  // }).then(function(gameInfoCheerioObj) {
+  //   //console.log('got a gameInfoCheerioObj: ' + gameInfoCheerioObj);
+  //   var scoreElements = searchForScoreRows(gameInfoCheerioObj);
+  //   console.log('score elements grabbed, length of ' + scoreElements.length);
+  //   res.json({
+  //     game_id: 'testy', //boxScoreResp.game_id,
+  //     gamecode: 'testytest', //boxScoreResp.gamecode,
+  //     score_elements: scoreElements
+  //   });
+  // })
+  // .catch(function(err) {
+  //   res.json({error: 'Error: ' + err});
+  // });
   getBoxScoreFromAPI(req.params.requested_game).then(function(boxScoreResp) {
     //console.log('got a boxScoreResp');
-    return getGameInfoHTML(boxScoreResp.gamecode);
-  }).then(function(gameInfoHTMLresp) {
-    console.log('got a gameinfo html resp');
-    //var gameInfoCheerioObj = loadHTMLforParsing(gameInfoHTMLresp);
-    return loadHTMLforParsing(gameInfoHTMLresp);
-  }).then(function(gameInfoCheerioObj) {
-    //console.log('got a gameInfoCheerioObj: ' + gameInfoCheerioObj);
-    var scoreElements = searchForScoreRows(gameInfoCheerioObj);
-    console.log('score elements grabbed, length of ' + scoreElements.length);
-    res.json({
-      game_id: 'testy', //boxScoreResp.game_id,
-      gamecode: 'testytest', //boxScoreResp.gamecode,
-      score_elements: scoreElements
+    getGameInfoHTML(boxScoreResp.gamecode).then(function(gameInfoHTMLresp) {
+      //console.log('got a gameinfo html resp');
+      return loadHTMLforParsing(gameInfoHTMLresp);
+    }).then(function(gameInfoCheerioObj) {
+      //console.log('got a gameInfoCheerioObj: ' + gameInfoCheerioObj);
+      var scoreElements = searchForScoreRows(gameInfoCheerioObj);
+      console.log('score elements grabbed, length of ' + scoreElements.length);
+      res.json({
+        game_id: boxScoreResp.game_id,
+        gamecode: boxScoreResp.gamecode,
+        game_status: boxScoreResp.game_status,
+        game_status_id: boxScoreResp.game_status_id,
+        away_team: boxScoreResp.away_team,
+        home_team: boxScoreResp.home_team,
+        score_elements: scoreElements
+      });
     });
   })
   .catch(function(err) {
@@ -60,6 +83,10 @@ function getBoxScoreFromAPI(game_id) {
       //console.log('jsonResp: ' + jsonResp);
       return {
         game_id: game_id,
+        game_status: JSON.parse(jsonResp).resultSets[0].rowSet[0][4],
+        game_status_id: JSON.parse(jsonResp).resultSets[0].rowSet[0][3],
+        away_team: JSON.parse(jsonResp).resultSets[1].rowSet[1][4],
+        home_team: JSON.parse(jsonResp).resultSets[1].rowSet[0][4],
         gamecode: JSON.parse(jsonResp).resultSets[0].rowSet[0][5]
       };
     })
@@ -93,7 +120,7 @@ function loadHTMLforParsing(gameInfoHTML) {
   var gameInfo = cheerio.load(gameInfoHTML.toString());
   console.log('loaded HTML into gameInfo object');
 
-  return bluebird.promisifyAll(gameInfo);
+  return gameInfo;
 }
 
 function searchForScoreRows(gameInfoCheerioObj) {
@@ -102,17 +129,48 @@ function searchForScoreRows(gameInfoCheerioObj) {
   //
   console.log('in searchForScoreRows function');
   var scoreInfo = [];
+  var timestampRE = /\d+:\d+[.]?\d?/;
+  var team_textRE = /[A-Z]{3}/;
+  var score_textRE = /\d+-\d+/;
+
   gameInfoCheerioObj('td.nbaGIPbPMidScore').each(function(idx, elem) {
+    var full_score_text = gameInfoCheerioObj(elem).text();
+    var away_team_text = gameInfoCheerioObj(elem).prev().text();
+    var home_team_text = gameInfoCheerioObj(elem).next().text();
+    console.log('awayTeamText: ' + away_team_text + '(length: ' + away_team_text.length + ') homeTeamText: ' + home_team_text + '(length: ' + home_team_text.length + ')');
+
+    var timestamp = timestampRE.exec(full_score_text)[0];
+    var team_text = team_textRE.exec(full_score_text)[0];
+    var score_text = score_textRE.exec(full_score_text)[0];
+    var scoreVals = score_text.match(/\d+/g);
+    //console.log('score_text: ' + score_text + ' scoreVals - length: ' + scoreVals.length);
+
+    if(away_team_text.length > 1) {
+      away_score = scoreVals[0];
+      home_score = scoreVals[1];
+    } else {
+      away_score = scoreVals[1];
+      home_score = scoreVals[0];
+    }
+    var margin = home_score - away_score;
+
     var score_element = {
-      score: gameInfoCheerioObj(elem).text(),
-      away_team: gameInfoCheerioObj(elem).prev().text(),
-      home_team: gameInfoCheerioObj(elem).next().text()
+      full_score_text: full_score_text,
+      away_team_text: away_team_text,
+      home_team_text: home_team_text,
+      timestamp: timestamp,
+      team_text: team_text,
+      score_text: score_text,
+      away_score: away_score,
+      home_score: home_score,
+      margin: margin
     };
+
     scoreInfo.push(score_element); //gameInfoCheerioObj(elem).text();
   });
   console.log('scoreinfo.length = ' + scoreInfo.length);
 
-  return scoreInfo;
+  return scoreInfo.reverse();
 }
 
 module.exports = app;
