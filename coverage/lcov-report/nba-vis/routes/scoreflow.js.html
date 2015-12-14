@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for nba-vis/routes/scoreflow.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">nba-vis/routes/</a> scoreflow.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25.3% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>21/83</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.25% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">25.3% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>21/83</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">// ./routes/date.js
+var express = require('express');
+var app = express.Router();
+&nbsp;
+var rp = require('request-promise');
+var cheerio = require('cheerio');
+var moment = require('moment');
+var bluebird = require('bluebird');
+&nbsp;
+var dataUrl = 'http://data.nba.com/data/';
+var apiUrl = 'http://stats.nba.com/stats/';
+var boxScoreParams = '/?StartPeriod=1&amp;EndPeriod=4&amp;StartRange=0&amp;EndRange=0&amp;RangeType=0&amp;';
+var baseGameUrl = 'http://www.nba.com/games/';
+// + {date}/{Away}{Home}/gameinfo.html -&gt; {gamecode} = {date}/{Away}{Home}
+var logoUrl = 'http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/gameinfo/teamlogos/small/';
+&nbsp;
+var accepts = {
+  'json': 'application/json',
+  'html': 'text/html'
+};
+&nbsp;
+app.param('format', <span class="fstat-no" title="function not covered" >function checkFormat(req, res, next, param) {</span>
+<span class="cstat-no" title="statement not covered" >  req.headers.accept = accepts[param];</span>
+<span class="cstat-no" title="statement not covered" >  next();</span>
+});
+&nbsp;
+app.get('/', function(req, res) {
+  res.json({error: 'Error: Please provide a GamID'});
+});
+&nbsp;
+app.get('/:requested_game', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
+<span class="cstat-no" title="statement not covered" >  getBoxScoreFromAPI(req.params.requested_game).then(<span class="fstat-no" title="function not covered" >function(boxScoreResp) {</span></span>
+    //console.log('got a boxScoreResp');
+<span class="cstat-no" title="statement not covered" >    getGameInfoHTML(boxScoreResp.gamecode).then(<span class="fstat-no" title="function not covered" >function(gameInfoHTMLresp) {</span></span>
+      //console.log('got a gameinfo html resp');
+<span class="cstat-no" title="statement not covered" >      return loadHTMLforParsing(gameInfoHTMLresp);</span>
+    }).then(<span class="fstat-no" title="function not covered" >function(gameInfoCheerioObj) {</span>
+      //console.log('got a gameInfoCheerioObj: ' + gameInfoCheerioObj);
+<span class="cstat-no" title="statement not covered" >      var scoreElements = searchForScoreRows(gameInfoCheerioObj);</span>
+<span class="cstat-no" title="statement not covered" >      console.log('score elements grabbed, length of ' + scoreElements.length);</span>
+<span class="cstat-no" title="statement not covered" >      res.json({</span>
+        game_id: boxScoreResp.game_id,
+        gamecode: boxScoreResp.gamecode,
+        game_status: boxScoreResp.game_status,
+        game_status_id: boxScoreResp.game_status_id,
+        away_team: boxScoreResp.away_team,
+        home_team: boxScoreResp.home_team,
+        score_elements: scoreElements.scoreElements,
+        margins: scoreElements.margins,
+        homeFlow: scoreElements.homeFlow,
+        awayFlow: scoreElements.awayFlow
+      });
+    });
+  })
+  .catch(<span class="fstat-no" title="function not covered" >function(err) {</span>
+<span class="cstat-no" title="statement not covered" >    res.json({error: 'Error: ' + err});</span>
+  });
+});
+&nbsp;
+<span class="fstat-no" title="function not covered" >function getBoxScoreFromAPI(game_id) {</span>
+  //http://stats.nba.com/stats/boxscore/
+  //?StartPeriod=1&amp;EndPeriod=4&amp;StartRange=0&amp;EndRange=0&amp;RangeType=0&amp;GameID={game_id}
+  //Gamecode in the response is response.resultSets[0].rowSet[0][5]
+<span class="cstat-no" title="statement not covered" >  var boxScoreUrl = apiUrl + 'boxscore' + boxScoreParams + "GameID=" + game_id;</span>
+<span class="cstat-no" title="statement not covered" >  console.log('box score api url: ' + boxScoreUrl);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return rp(boxScoreUrl)</span>
+    .then(<span class="fstat-no" title="function not covered" >function(jsonResp) {</span>
+      //console.log('got a jsonResp from the boxScoreUrl');
+      //console.log('jsonResp: ' + jsonResp);
+<span class="cstat-no" title="statement not covered" >      return {</span>
+        game_id: game_id,
+        game_status: JSON.parse(jsonResp).resultSets[0].rowSet[0][4],
+        game_status_id: JSON.parse(jsonResp).resultSets[0].rowSet[0][3],
+        away_team: JSON.parse(jsonResp).resultSets[1].rowSet[1][4],
+        home_team: JSON.parse(jsonResp).resultSets[1].rowSet[0][4],
+        gamecode: JSON.parse(jsonResp).resultSets[0].rowSet[0][5]
+      };
+    })
+    .catch(<span class="fstat-no" title="function not covered" >function(err) {</span>
+      //console.log('caught an error from the boxScoreUrl');
+<span class="cstat-no" title="statement not covered" >      throw 'Problem grabbing the game box score. Error:' + err;</span>
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function getGameInfoHTML(gamecode) {</span>
+  // http://www.nba.com/games/{gamecode}/gameinfo.html -&gt; 
+  // {gamecode} = {date}/{Away}{Home}
+<span class="cstat-no" title="statement not covered" >  var gameInfoUrl = baseGameUrl + gamecode + '/gameinfo.html';</span>
+<span class="cstat-no" title="statement not covered" >  console.log('gameInfoUrl: ' + gameInfoUrl);</span>
+<span class="cstat-no" title="statement not covered" >  return rp(gameInfoUrl)</span>
+    .then(<span class="fstat-no" title="function not covered" >function(htmlResp) {</span>
+<span class="cstat-no" title="statement not covered" >      console.log('got an html resp from gameInfoUrl');</span>
+      //console.log('html resp: ' + htmlResp);
+<span class="cstat-no" title="statement not covered" >      return htmlResp;</span>
+    })
+    .catch(<span class="fstat-no" title="function not covered" >function(err) {</span>
+<span class="cstat-no" title="statement not covered" >      console.log('caught an error grabbing the gameinfo html');</span>
+<span class="cstat-no" title="statement not covered" >      throw 'Problem grabbing the gameinfo HTML page. Error: ' + err;</span>
+    });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function loadHTMLforParsing(gameInfoHTML) {</span>
+  // parse the HTML using cheerio for score updates
+  // the scores are all within a table element with class "nbaGIPbPMidScore"
+  // example: &lt;td class="nbaGIPbPMidScore"&gt;05:52 &lt;br&gt;[POR 18-6]&lt;/td&gt;
+<span class="cstat-no" title="statement not covered" >  console.log('in loadHTMLforParsing function');</span>
+<span class="cstat-no" title="statement not covered" >  var gameInfo = cheerio.load(gameInfoHTML.toString());</span>
+<span class="cstat-no" title="statement not covered" >  console.log('loaded HTML into gameInfo object');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return gameInfo;</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered" >function searchForScoreRows(gameInfoCheerioObj) {</span>
+  // the scores are all within a table element with class "nbaGIPbPMidScore"
+  // example: &lt;td class="nbaGIPbPMidScore"&gt;11:24 &lt;br&gt;[SAC 2-0]&lt;/td&gt;
+  //
+<span class="cstat-no" title="statement not covered" >  console.log('in searchForScoreRows function');</span>
+<span class="cstat-no" title="statement not covered" >  var scoreElements = [];</span>
+<span class="cstat-no" title="statement not covered" >  var margins = [];</span>
+<span class="cstat-no" title="statement not covered" >  var homeFlow = [];</span>
+<span class="cstat-no" title="statement not covered" >  var awayFlow = [];</span>
+<span class="cstat-no" title="statement not covered" >  var timestampRE = /\d+:\d+[.]?\d?/;</span>
+<span class="cstat-no" title="statement not covered" >  var team_textRE = /[A-Z]{3}/;</span>
+<span class="cstat-no" title="statement not covered" >  var score_textRE = /\d+-\d+/;</span>
+<span class="cstat-no" title="statement not covered" >  var curMin = 12;</span>
+<span class="cstat-no" title="statement not covered" >  var qtr = 1;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  gameInfoCheerioObj('td.nbaGIPbPMidScore').each(<span class="fstat-no" title="function not covered" >function(idx, elem) {</span></span>
+<span class="cstat-no" title="statement not covered" >    var full_score_text = gameInfoCheerioObj(elem).text();</span>
+<span class="cstat-no" title="statement not covered" >    var away_team_text = gameInfoCheerioObj(elem).prev().text();</span>
+<span class="cstat-no" title="statement not covered" >    var home_team_text = gameInfoCheerioObj(elem).next().text();</span>
+    //console.log('awayTeamText: ' + away_team_text + '(length: ' + away_team_text.length + ') homeTeamText: ' + home_team_text + '(length: ' + home_team_text.length + ')');
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var timestamp = timestampRE.exec(full_score_text)[0];</span>
+<span class="cstat-no" title="statement not covered" >    var team_text = team_textRE.exec(full_score_text)[0];</span>
+<span class="cstat-no" title="statement not covered" >    var score_text = score_textRE.exec(full_score_text)[0];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var scoreVals = score_text.match(/\d+/g);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var timeVals = timestamp.match(/[\d.]+/g);</span>
+<span class="cstat-no" title="statement not covered" >    var minutes = parseFloat(timeVals[0]);</span>
+<span class="cstat-no" title="statement not covered" >    var seconds = parseFloat(timeVals[1]);</span>
+<span class="cstat-no" title="statement not covered" >    qtr = (minutes &gt; curMin) ? (qtr + 1) : qtr;</span>
+<span class="cstat-no" title="statement not covered" >    curMin = minutes;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if(away_team_text.length &gt; 1) {</span>
+<span class="cstat-no" title="statement not covered" >      away_score = scoreVals[0];</span>
+<span class="cstat-no" title="statement not covered" >      home_score = scoreVals[1];</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      away_score = scoreVals[1];</span>
+<span class="cstat-no" title="statement not covered" >      home_score = scoreVals[0];</span>
+    }
+<span class="cstat-no" title="statement not covered" >    var margin = home_score - away_score;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var score_element = {</span>
+      full_score_text: full_score_text,
+      away_team_text: away_team_text,
+      home_team_text: home_team_text,
+      team_text: team_text,
+      qtr: qtr,
+      timestamp: timestamp,
+      minutes: minutes,
+      seconds: seconds,
+      score_text: score_text,
+      away_score: away_score,
+      home_score: home_score,
+      margin: margin
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    scoreElements.push(score_element); </span>//gameInfoCheerioObj(elem).text();
+<span class="cstat-no" title="statement not covered" >    margins.push(margin);</span>
+<span class="cstat-no" title="statement not covered" >    homeFlow.push(home_score);</span>
+<span class="cstat-no" title="statement not covered" >    awayFlow.push(away_score);</span>
+  });
+<span class="cstat-no" title="statement not covered" >  console.log('scoreinfo.length = ' + scoreElements.length);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var scoreInfo = {</span>
+    scoreElements: scoreElements,
+    margins: margins,
+    awayFlow: awayFlow,
+    homeFlow: homeFlow
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return scoreInfo;</span>
+}
+&nbsp;
+module.exports = app;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Dec 14 2015 17:52:16 GMT-0500 (EST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
