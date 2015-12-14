@@ -1,6 +1,6 @@
 // ./js/nba-vis/flow-controller.js
 
-angular.module('bewd.nba-vis.flow-controller', []);
+angular.module('bewd.nba-vis.flow-controller', ['zingchart-angularjs']);
 //second argument is for dependencies
 
 angular.module('bewd.nba-vis.flow-controller')
@@ -50,6 +50,9 @@ angular.module('bewd.nba-vis.flow-controller')
               $interval.cancel(flowLoader);
               flowLoader = $interval(reloadScoreFlow, 10000);
             }
+    
+            //var myNewChart = new Chart(ctx).Bar(vm.score_elements.margin);
+
           } else {
             vm.error = scoreFlowData.error;
           }
@@ -60,6 +63,14 @@ angular.module('bewd.nba-vis.flow-controller')
       $log.debug('calling loadScoreFlow with game_id of ', game_id);
       loadScoreFlow(game_id);
     }
+
+    $scope.myJson = {
+        type : 'bar',
+        series : [
+          { values : [54,23,34,23,43] },
+          { values : [10,15,16,20,40] }
+        ]
+    };
 
     var flowLoader;
     var gameStarted = 0;

@@ -100,6 +100,7 @@ function getGameInfoHTML(gamecode) {
   // http://www.nba.com/games/{gamecode}/gameinfo.html -> 
   // {gamecode} = {date}/{Away}{Home}
   var gameInfoUrl = baseGameUrl + gamecode + '/gameinfo.html';
+  console.log('gameInfoUrl: ' + gameInfoUrl);
   return rp(gameInfoUrl)
     .then(function(htmlResp) {
       console.log('got an html resp from gameInfoUrl');
@@ -132,18 +133,26 @@ function searchForScoreRows(gameInfoCheerioObj) {
   var timestampRE = /\d+:\d+[.]?\d?/;
   var team_textRE = /[A-Z]{3}/;
   var score_textRE = /\d+-\d+/;
+  var curMin = 12;
+  var qtr = 1;
 
   gameInfoCheerioObj('td.nbaGIPbPMidScore').each(function(idx, elem) {
     var full_score_text = gameInfoCheerioObj(elem).text();
     var away_team_text = gameInfoCheerioObj(elem).prev().text();
     var home_team_text = gameInfoCheerioObj(elem).next().text();
-    console.log('awayTeamText: ' + away_team_text + '(length: ' + away_team_text.length + ') homeTeamText: ' + home_team_text + '(length: ' + home_team_text.length + ')');
+    //console.log('awayTeamText: ' + away_team_text + '(length: ' + away_team_text.length + ') homeTeamText: ' + home_team_text + '(length: ' + home_team_text.length + ')');
 
     var timestamp = timestampRE.exec(full_score_text)[0];
     var team_text = team_textRE.exec(full_score_text)[0];
     var score_text = score_textRE.exec(full_score_text)[0];
+
     var scoreVals = score_text.match(/\d+/g);
-    //console.log('score_text: ' + score_text + ' scoreVals - length: ' + scoreVals.length);
+
+    var timeVals = timestamp.match(/[\d.]+/g);
+    var minutes = parseFloat(timeVals[0]);
+    var seconds = parseFloat(timeVals[1]);
+    qtr = (minutes > curMin) ? (qtr + 1) : qtr;
+    curMin = minutes;
 
     if(away_team_text.length > 1) {
       away_score = scoreVals[0];
@@ -158,8 +167,11 @@ function searchForScoreRows(gameInfoCheerioObj) {
       full_score_text: full_score_text,
       away_team_text: away_team_text,
       home_team_text: home_team_text,
-      timestamp: timestamp,
       team_text: team_text,
+      qtr: qtr,
+      timestamp: timestamp,
+      minutes: minutes,
+      seconds: seconds,
       score_text: score_text,
       away_score: away_score,
       home_score: home_score,
