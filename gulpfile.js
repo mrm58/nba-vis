@@ -14,7 +14,7 @@ gulp.task('server', function() {
     server.start().then(function(result) {
         console.log('Server exited with result:', result);
     });
-    return gulp.watch(['index.js', 'models/*.js', 'routes.js', 'routes/*.js'], function(file) {
+    return gulp.watch(['index.js', 'routes.js', 'routes/*.js'], function(file) {
       console.log(file);
         server.start.apply(server);
     });
