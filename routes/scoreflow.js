@@ -42,7 +42,9 @@ app.get('/:requested_game', function(req, res) {
         away_team: boxScoreResp.away_team,
         home_team: boxScoreResp.home_team,
         score_elements: scoreElements.scoreElements,
-        margins: scoreElements.margins
+        margins: scoreElements.margins,
+        homeFlow: scoreElements.homeFlow,
+        awayFlow: scoreElements.awayFlow
       });
     });
   })
@@ -112,6 +114,8 @@ function searchForScoreRows(gameInfoCheerioObj) {
   console.log('in searchForScoreRows function');
   var scoreElements = [];
   var margins = [];
+  var homeFlow = [];
+  var awayFlow = [];
   var timestampRE = /\d+:\d+[.]?\d?/;
   var team_textRE = /[A-Z]{3}/;
   var score_textRE = /\d+-\d+/;
@@ -162,12 +166,16 @@ function searchForScoreRows(gameInfoCheerioObj) {
 
     scoreElements.push(score_element); //gameInfoCheerioObj(elem).text();
     margins.push(margin);
+    homeFlow.push(home_score);
+    awayFlow.push(away_score);
   });
   console.log('scoreinfo.length = ' + scoreElements.length);
 
   var scoreInfo = {
     scoreElements: scoreElements,
-    margins: margins
+    margins: margins,
+    awayFlow: awayFlow,
+    homeFlow: homeFlow
   };
 
   return scoreInfo;

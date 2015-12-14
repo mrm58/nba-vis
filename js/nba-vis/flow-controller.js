@@ -22,7 +22,7 @@ angular.module('bewd.nba-vis.flow-controller')
   function FlowController(flowControllerService, $interval, $log, $scope, startValues) {
     var vm = this;
 
-    vm.logoUrl = 'http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/gameinfo/teamlogos/small';
+    vm.logoUrl = 'http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/gameinfo/teamlogos';
 
     function loadScoreFlow(requestedGameID) {
       flowControllerService.getScoreFlow(requestedGameID)

@@ -1,12 +1,24 @@
 // ./views/partials/dateView.jade
 
 div(ng-show="vm.game_id")
-  h3 {{vm.game_id}}, {{vm.gamecode}}
-  h3 {{vm.away_team}} at {{vm.home_team}}, {{vm.game_status}} (ID: {{vm.game_status_id}})
+  div.row
+    div.col-md-1
+    div.col-md-2.text-center
+      h3 {{vm.away_team}}
+    div.col-md-2.text-center
+      img(src="{{vm.logoUrl}}/{{vm.away_team}}.gif")
+    div.col-md-2.text-center
+      h5 at
+      h5 {{vm.game_status}}
+    div.col-md-2.text-center
+        img(src="{{vm.logoUrl}}/{{vm.home_team}}.gif")
+    div.col-md-2.text-center
+      h3 {{vm.home_team}}
+    div.col-md-1
+  //h3 {{vm.away_team}} at {{vm.home_team}}, {{vm.game_status}} (ID: {{vm.game_status_id}})
 
   //zingchart(id="myChart" zc-json="myJson" zc-type="bar" zc-height=500 zc-width=800)
   div(zingchart id="chart-1" zc-json="vm.marginData" zc-type="bar" zc-width="100%" zc-height="100%")
-  h4 {{vm.chartType}}
 
   table.table.table-condensed
       tr.table-bordered.row(ng-init="row_ind = $index", ng-repeat="score in vm.score_elements track by $index")
