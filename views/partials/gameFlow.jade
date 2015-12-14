@@ -23,9 +23,10 @@ div(ng-show="vm.game_id")
   table.table.table-condensed
       tr.table-bordered.row(ng-init="row_ind = $index", ng-repeat="score in vm.score_elements track by $index")
         td.table-bordered.col-md-5 {{score.away_team_text}}
-        td.table-bordered.info.col-md-2 
-          div {{score.team_text}} {{score.score_text}} at {{score.timestamp}} ({{score.qtr}})
-          div {{score.away_score}}-{{score.home_score}} (Margin: {{score.margin}})
+        td.table-bordered.info.col-md-2.text-center
+          div(ng-if="score.qtr < 5") Quarter {{score.qtr}}, {{score.timestamp}}
+          div(ng-if="score.qtr > 4") OT{{score.qtr - 4}}, {{score.timestamp}}
+          div {{vm.away_team}} {{score.away_score}}-{{score.home_score}} {{vm.home_team}}
         td.table-bordered.col-md-5 {{score.home_team_text}}
 
 div(ng-show="vm.error")
