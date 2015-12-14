@@ -50,6 +50,14 @@ angular.module('bewd.nba-vis.flow-controller')
               $interval.cancel(flowLoader);
               flowLoader = $interval(reloadScoreFlow, 10000);
             }
+            vm.marginData = {
+              type: 'bar',
+              series : [
+                {values: scoreFlowData.margins}
+              ]
+            };
+            //{ values : [54,23,34,23,43] },
+            //vm.scoreData.series[0].values = scoreFlowData.margins;
     
             //var myNewChart = new Chart(ctx).Bar(vm.score_elements.margin);
 
@@ -63,14 +71,6 @@ angular.module('bewd.nba-vis.flow-controller')
       $log.debug('calling loadScoreFlow with game_id of ', game_id);
       loadScoreFlow(game_id);
     }
-
-    $scope.myJson = {
-        type : 'bar',
-        series : [
-          { values : [54,23,34,23,43] },
-          { values : [10,15,16,20,40] }
-        ]
-    };
 
     var flowLoader;
     var gameStarted = 0;

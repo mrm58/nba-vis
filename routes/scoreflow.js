@@ -25,26 +25,6 @@ app.param('format', function checkFormat(req, res, next, param) {
 });
 
 app.get('/:requested_game', function(req, res) {
-  // getBoxScoreFromAPI(req.params.requested_game).then(function(boxScoreResp) {
-  //   //console.log('got a boxScoreResp');
-  //   return getGameInfoHTML(boxScoreResp.gamecode);
-  // }).then(function(gameInfoHTMLresp) {
-  //   console.log('got a gameinfo html resp');
-  //   //var gameInfoCheerioObj = loadHTMLforParsing(gameInfoHTMLresp);
-  //   return loadHTMLforParsing(gameInfoHTMLresp);
-  // }).then(function(gameInfoCheerioObj) {
-  //   //console.log('got a gameInfoCheerioObj: ' + gameInfoCheerioObj);
-  //   var scoreElements = searchForScoreRows(gameInfoCheerioObj);
-  //   console.log('score elements grabbed, length of ' + scoreElements.length);
-  //   res.json({
-  //     game_id: 'testy', //boxScoreResp.game_id,
-  //     gamecode: 'testytest', //boxScoreResp.gamecode,
-  //     score_elements: scoreElements
-  //   });
-  // })
-  // .catch(function(err) {
-  //   res.json({error: 'Error: ' + err});
-  // });
   getBoxScoreFromAPI(req.params.requested_game).then(function(boxScoreResp) {
     //console.log('got a boxScoreResp');
     getGameInfoHTML(boxScoreResp.gamecode).then(function(gameInfoHTMLresp) {
@@ -61,7 +41,8 @@ app.get('/:requested_game', function(req, res) {
         game_status_id: boxScoreResp.game_status_id,
         away_team: boxScoreResp.away_team,
         home_team: boxScoreResp.home_team,
-        score_elements: scoreElements
+        score_elements: scoreElements.scoreElements,
+        margins: scoreElements.margins
       });
     });
   })
@@ -129,7 +110,8 @@ function searchForScoreRows(gameInfoCheerioObj) {
   // example: <td class="nbaGIPbPMidScore">11:24 <br>[SAC 2-0]</td>
   //
   console.log('in searchForScoreRows function');
-  var scoreInfo = [];
+  var scoreElements = [];
+  var margins = [];
   var timestampRE = /\d+:\d+[.]?\d?/;
   var team_textRE = /[A-Z]{3}/;
   var score_textRE = /\d+-\d+/;
@@ -178,11 +160,17 @@ function searchForScoreRows(gameInfoCheerioObj) {
       margin: margin
     };
 
-    scoreInfo.push(score_element); //gameInfoCheerioObj(elem).text();
+    scoreElements.push(score_element); //gameInfoCheerioObj(elem).text();
+    margins.push(margin);
   });
-  console.log('scoreinfo.length = ' + scoreInfo.length);
+  console.log('scoreinfo.length = ' + scoreElements.length);
 
-  return scoreInfo.reverse();
+  var scoreInfo = {
+    scoreElements: scoreElements,
+    margins: margins
+  };
+
+  return scoreInfo;
 }
 
 module.exports = app;
