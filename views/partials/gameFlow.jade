@@ -15,10 +15,12 @@ div(ng-show="vm.game_id")
     div.col-md-2.text-center
       h3 {{vm.home_team}}
     div.col-md-1
-  //h3 {{vm.away_team}} at {{vm.home_team}}, {{vm.game_status}} (ID: {{vm.game_status_id}})
 
-  //zingchart(id="myChart" zc-json="myJson" zc-type="bar" zc-height=500 zc-width=800)
+  br
+
   div(zingchart id="chart-1" zc-json="vm.marginData" zc-type="bar" zc-width="100%" zc-height="100%")
+
+  br
 
   table.table.table-condensed
       tr.table-bordered.row(ng-init="row_ind = $index", ng-repeat="score in vm.score_elements track by $index")

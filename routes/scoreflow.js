@@ -24,6 +24,10 @@ app.param('format', function checkFormat(req, res, next, param) {
   next();
 });
 
+app.get('/', function(req, res) {
+  res.json({error: 'Error: Please provide a GamID'});
+});
+
 app.get('/:requested_game', function(req, res) {
   getBoxScoreFromAPI(req.params.requested_game).then(function(boxScoreResp) {
     //console.log('got a boxScoreResp');
