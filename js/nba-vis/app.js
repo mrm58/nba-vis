@@ -43,6 +43,19 @@
           },
           bindToController: true
         }); //end $routeProvider.when('/gameflow/:game_id')
+        $routeProvider.when('/', {
+          templateUrl: '/partials/dateView',
+          controller: 'DateController',
+          controllerAs: 'vm',
+          resolve: {
+            startValues: function() {
+              return {
+                today: true
+              };
+            }
+          },
+          bindToController: true
+        }); //end $routeProvider.when('/gamedate')
       } //end function($locationProvider, $routeProvider)
     ); //end config()
     //end angular.module('bewd.nba-vis')

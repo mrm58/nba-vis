@@ -3,7 +3,7 @@ var express = require('express');
 var app = express.Router();
 
 var rp = require('request-promise');
-var moment = require('moment');
+var moment = require('moment-timezone');
 var dataUrl = 'http://data.nba.com/data/';
 var logoUrl = 'http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/gameinfo/teamlogos/small/';
 
@@ -18,7 +18,7 @@ app.param('format', function checkFormat(req, res, next, param) {
 });
 
 app.get('/', function(req, res) {
-  var cur_moment = moment();
+  var cur_moment = moment().tz('America/New_York');
   var prevDate = moment().subtract(1, 'days');
   var nextDate = moment().add(1, 'days');
   getDateResponse(cur_moment, prevDate, nextDate, req, res);
