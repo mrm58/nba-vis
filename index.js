@@ -22,54 +22,6 @@ app.use(require('morgan')('dev'));    // what is this?
 
 app.set('view engine', 'jade');
 
-var nba = require('nba');
-var Promise = require('bluebird');
-var nbaAPI = Promise.promisifyAll(nba.api);
-
-/*********************************************************************
-*--------------------------------------------------------------------*
-* NBA Functions                                                      *
-*--------------------------------------------------------------------*
-nba.api
-nba.findPlayer
-nba.playerIdFromName
-nba.players
-nba.ready
-nba.searchPlayers
-nba.sportVu
-nba.stats
-nba.teamIdFromName
-nba.teams
-nba.updatePlayers
-nba.updateTeams
-nba.usePromises
-*--------------------------------------------------------------------*
-* NBA API Functions                                                  *
-*   *Async versions are promisified by the Bluebird library          *
-*--------------------------------------------------------------------*
-nbaAPI.boxScoreAdvanced, nbaAPI.boxScoreAdvancedAsync
-nbaAPI.boxScoreFourFactors, nbaAPI.boxScoreFourFactorsAsync
-nbaAPI.boxScoreMisc, nbaAPI.boxScoreMiscAsync
-nbaAPI.boxScoreScoring, nbaAPI.boxScoreScoringAsync
-nbaAPI.boxScoreUsage, nbaAPI.boxScoreUsageAsync
-nbaAPI.commonTeamRoster, nbaAPI.commonTeamRosterAsync
-nbaAPI.playByPlay, nbaAPI.playByPlayAsync
-nbaAPI.playerDashPtReboundLogs, nbaAPI.playerDashPtReboundLogsAsync
-nbaAPI.playerDashPtShotLog, nbaAPI.playerDashPtShotLogAsync
-nbaAPI.playerInfo, nbaAPI.playerInfoAsync
-nbaAPI.playerProfile, nbaAPI.playerProfileAsync
-nbaAPI.playerSplits, nbaAPI.playerSplitsAsync
-nbaAPI.playersInfo, nbaAPI.playersInfoAsync
-nbaAPI.scoreboard, nbaAPI.scoreboardAsync
-nbaAPI.shots, nbaAPI.shotsAsync
-nbaAPI.teamHistoricalLeaders, nbaAPI.teamHistoricalLeadersAsync
-nbaAPI.teamInfoCommon, nbaAPI.teamInfoCommonAsync
-nbaAPI.teamPlayerDashboard, nbaAPI.teamPlayerDashboardAsync
-nbaAPI.teamSplits, nbaAPI.teamSplitsAsync
-nbaAPI.teamStats, nbaAPI.teamStatsAsync
-nbaAPI.teamYears, nbaAPI.teamYearsAsync
-*********************************************************************/
-
 /*********************************************************************
 small images:
   http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/gameinfo/teamlogos/small/DET.gif
