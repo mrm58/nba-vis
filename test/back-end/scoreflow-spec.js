@@ -16,4 +16,16 @@ describe('scoreflow page', function() {
       });
   });
 
+
+  it('should return an error for a bad GameID', function(done) {
+    request(app)
+      .get('/scoreflow/01033')
+      .set('Accept', 'application/json')
+
+      .end(function(err, res) {
+        should.exist(res.body.error);
+        done();
+      });
+  });
+
 });

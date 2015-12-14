@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">25.3% </span>
+        <span class="strong">32.53% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>21/83</span>
+        <span class='fraction'>27/83</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>0/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">6.25% </span>
+        <span class="strong">31.25% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>1/16</span>
+        <span class='fraction'>5/16</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">25.3% </span>
+        <span class="strong">32.53% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>21/83</span>
+        <span class='fraction'>27/83</span>
       </div>
     </div>
   </div>
@@ -261,7 +261,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -282,10 +282,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -293,25 +289,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -447,8 +447,8 @@ app.get('/', function(req, res) {
   res.json({error: 'Error: Please provide a GamID'});
 });
 &nbsp;
-app.get('/:requested_game', <span class="fstat-no" title="function not covered" >function(req, res) {</span>
-<span class="cstat-no" title="statement not covered" >  getBoxScoreFromAPI(req.params.requested_game).then(<span class="fstat-no" title="function not covered" >function(boxScoreResp) {</span></span>
+app.get('/:requested_game', function(req, res) {
+  getBoxScoreFromAPI(req.params.requested_game).then(<span class="fstat-no" title="function not covered" >function(boxScoreResp) {</span>
     //console.log('got a boxScoreResp');
 <span class="cstat-no" title="statement not covered" >    getGameInfoHTML(boxScoreResp.gamecode).then(<span class="fstat-no" title="function not covered" >function(gameInfoHTMLresp) {</span></span>
       //console.log('got a gameinfo html resp');
@@ -471,19 +471,19 @@ app.get('/:requested_game', <span class="fstat-no" title="function not covered" 
       });
     });
   })
-  .catch(<span class="fstat-no" title="function not covered" >function(err) {</span>
-<span class="cstat-no" title="statement not covered" >    res.json({error: 'Error: ' + err});</span>
+  .catch(function(err) {
+    res.json({error: 'Error: ' + err});
   });
 });
 &nbsp;
-<span class="fstat-no" title="function not covered" >function getBoxScoreFromAPI(game_id) {</span>
+function getBoxScoreFromAPI(game_id) {
   //http://stats.nba.com/stats/boxscore/
   //?StartPeriod=1&amp;EndPeriod=4&amp;StartRange=0&amp;EndRange=0&amp;RangeType=0&amp;GameID={game_id}
   //Gamecode in the response is response.resultSets[0].rowSet[0][5]
-<span class="cstat-no" title="statement not covered" >  var boxScoreUrl = apiUrl + 'boxscore' + boxScoreParams + "GameID=" + game_id;</span>
-<span class="cstat-no" title="statement not covered" >  console.log('box score api url: ' + boxScoreUrl);</span>
+  var boxScoreUrl = apiUrl + 'boxscore' + boxScoreParams + "GameID=" + game_id;
+  console.log('box score api url: ' + boxScoreUrl);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return rp(boxScoreUrl)</span>
+  return rp(boxScoreUrl)
     .then(<span class="fstat-no" title="function not covered" >function(jsonResp) {</span>
       //console.log('got a jsonResp from the boxScoreUrl');
       //console.log('jsonResp: ' + jsonResp);
@@ -496,9 +496,9 @@ app.get('/:requested_game', <span class="fstat-no" title="function not covered" 
         gamecode: JSON.parse(jsonResp).resultSets[0].rowSet[0][5]
       };
     })
-    .catch(<span class="fstat-no" title="function not covered" >function(err) {</span>
+    .catch(function(err) {
       //console.log('caught an error from the boxScoreUrl');
-<span class="cstat-no" title="statement not covered" >      throw 'Problem grabbing the game box score. Error:' + err;</span>
+      throw 'Problem grabbing the game box score. Error:' + err;
     });
 }
 &nbsp;
@@ -610,7 +610,7 @@ module.exports = app;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Dec 14 2015 17:52:16 GMT-0500 (EST)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Dec 14 2015 17:58:25 GMT-0500 (EST)
 </div>
 </div>
 <script src="../../prettify.js"></script>
