@@ -59,7 +59,7 @@ function getDateResponse(requested_date_moment, prevDay, nextDay, req, res) {
     logoUrl: logoUrl
   };
 
-  if(requested_date_moment().isBefore(regular_season_start)) {
+  if(requested_date_moment.isBefore(regular_season_start)) {
     jsonRet.error = 'This tool only works for the 2015-2016 season.';
     res.format({
       html: function() {
@@ -69,31 +69,31 @@ function getDateResponse(requested_date_moment, prevDay, nextDay, req, res) {
         res.json(jsonRet);
       }
     });
-  }
-
-  rp(dateUrl)
-    .then(function(jsonResp) {
-      jsonRet.games = JSON.parse(jsonResp).games;
-      res.format({
-        html: function() {
-          res.render('dateView', jsonRet);
-        },
-        json: function() {
-          res.json(jsonRet);
-        }
+  } else {
+    rp(dateUrl)
+      .then(function(jsonResp) {
+        jsonRet.games = JSON.parse(jsonResp).games;
+        res.format({
+          html: function() {
+            res.render('dateView', jsonRet);
+          },
+          json: function() {
+            res.json(jsonRet);
+          }
+        });
+      })
+      .catch(function(err) {
+        jsonRet.error = 'There seem to be no games on this day.  Please check the requested date.';
+        res.format({
+          html: function() {
+            res.render('dateView', jsonRet);
+          },
+          json: function() {
+            res.json(jsonRet);
+          }
+        });
       });
-    })
-    .catch(function(err) {
-      jsonRet.error = 'There seem to be no games on this day.  Please check the requested date.';
-      res.format({
-        html: function() {
-          res.render('dateView', jsonRet);
-        },
-        json: function() {
-          res.json(jsonRet);
-        }
-      });
-    });
+    }
 }
 
 
