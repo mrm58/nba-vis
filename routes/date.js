@@ -4,6 +4,8 @@ var app = express.Router();
 
 var rp = require('request-promise');
 var moment = require('moment-timezone');
+var regular_season_start = moment('20151127', 'YYYYMMDD');
+var regular_season_end = moment('20160413', 'YYYYMMDD');
 var dataUrl = 'http://data.nba.com/data/';
 var logoUrl = 'http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/gameinfo/teamlogos/small/';
 
@@ -40,6 +42,7 @@ function getDateResponse(requested_date_moment, prevDay, nextDay, req, res) {
   var todaysDate = requested_date_moment.format('YYYYMMDD');
   var longDate = requested_date_moment.format('MMMM Do YYYY');
   var dateUrl = dataUrl + 'json/nbacom/' + season + '/gameline/' + todaysDate + '/games.json';
+  console.log('dateURL: ' + dateUrl);
   
   var prevDate = prevDay.format('YYYYMMDD');
   var prevDate_long = prevDay.format('MMMM Do YYYY');
@@ -55,6 +58,18 @@ function getDateResponse(requested_date_moment, prevDay, nextDay, req, res) {
     nextDate: nextDate,
     logoUrl: logoUrl
   };
+
+  if(requested_date_moment().isBefore(regular_season_start)) {
+    jsonRet.error = 'This tool only works for the 2015-2016 season.';
+    res.format({
+      html: function() {
+        res.render('dateView', jsonRet);
+      },
+      json: function() {
+        res.json(jsonRet);
+      }
+    });
+  }
 
   rp(dateUrl)
     .then(function(jsonResp) {
