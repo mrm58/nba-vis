@@ -27,12 +27,13 @@ angular.module('bewd.nba-vis.date-controller')
   function DateController(dateControllerService, $interval, $log, $scope, startValues) {
     var vm = this;
 
-    vm.logoUrl = 'http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/gameinfo/teamlogos/small/';
+    // vm.logoUrl = 'http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/gameinfo/teamlogos/small/';
 
     function loadGameList(requestedDate) {
       dateControllerService.getDatesGames(requestedDate)
         .then(function(datesGameList) {
           $log.debug("datesGameList response is ", datesGameList);
+          vm.logoUrl = datesGameList.logoUrl;
           vm.long_date = datesGameList.long_date;
           vm.season = datesGameList.season;
           vm.prevDate = datesGameList.prevDate;
@@ -51,6 +52,7 @@ angular.module('bewd.nba-vis.date-controller')
       dateControllerService.getTodaysGames()
         .then(function(todaysGamesList) {
           $log.debug("todaysGamesList response is ", todaysGamesList);
+          vm.logoUrl = todaysGamesList.logoUrl;
           vm.long_date = todaysGamesList.long_date;
           vm.season = todaysGamesList.season;
           vm.prevDate = todaysGamesList.prevDate;

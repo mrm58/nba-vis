@@ -13,6 +13,38 @@ var boxScoreParams = '/?StartPeriod=1&EndPeriod=4&StartRange=0&EndRange=0&RangeT
 var baseGameUrl = 'http://www.nba.com/games/';
 // + {date}/{Away}{Home}/gameinfo.html -> {gamecode} = {date}/{Away}{Home}
 var logoUrl = 'http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/gameinfo/teamlogos/small/';
+var teamColors = {
+  'ATL': '#E13A3E',
+  'BKN': '#008348',
+  'BOS': '#061922',
+  'CHA': '#1D1160',
+  'CHI': '#CE1141',
+  'CLE': '#860038',
+  'DAL': '#C4CED3',
+  'DEN': '#4D90CD',
+  'DET': '#ED174C',
+  'GSW': '#FDB927',
+  'HOU': '#CE1141',
+  'IND': '#FFC633',
+  'LAC': '#006BB6',
+  'LAL': '#552582',
+  'MEM': '#0F586C',
+  'MIA': '#98002E',
+  'MIL': '#00471B',
+  'MIN': '#005083',
+  'NOP': '#002B5C',
+  'NYK': '#F58426',
+  'OKC': '#007DC3',
+  'ORL': '#007DC5',
+  'PHI': '#006BB6',
+  'PHX': '#EF6020',
+  'POR': '#E03A3E',
+  'SAC': '#724C9F',
+  'SAS': '#BAC3C9',
+  'TOR': '#CE1141',
+  'UTA': '#00471B',
+  'WAS': '#E31837'
+};
 
 var accepts = {
   'json': 'application/json',
@@ -38,6 +70,11 @@ app.get('/:requested_game', function(req, res) {
       //console.log('got a gameInfoCheerioObj: ' + gameInfoCheerioObj);
       var scoreElements = searchForScoreRows(gameInfoCheerioObj);
       console.log('score elements grabbed, length of ' + scoreElements.length);
+      var margColor = [];
+      for(var idx = 0; idx < scoreElements.margins.length; idx++) {
+        margColor.push((scoreElements.margins[idx] < 0) ? teamColors[boxScoreResp.away_team] : teamColors[boxScoreResp.home_team]);
+      }
+
       res.json({
         game_id: boxScoreResp.game_id,
         gamecode: boxScoreResp.gamecode,
@@ -46,9 +83,11 @@ app.get('/:requested_game', function(req, res) {
         away_team: boxScoreResp.away_team,
         home_team: boxScoreResp.home_team,
         score_elements: scoreElements.scoreElements,
-        margins: scoreElements.margins,
+        margins: scoreElements.margins.map(Math.abs),
         homeFlow: scoreElements.homeFlow,
-        awayFlow: scoreElements.awayFlow
+        awayFlow: scoreElements.awayFlow,
+        offsetFlow: scoreElements.offsetFlow,
+        margColor: margColor
       });
     });
   })
@@ -120,6 +159,7 @@ function searchForScoreRows(gameInfoCheerioObj) {
   var margins = [];
   var homeFlow = [];
   var awayFlow = [];
+  var offsetFlow = [];
   var timestampRE = /\d+:\d+[.]?\d?/;
   var team_textRE = /[A-Z]{3}/;
   var score_textRE = /\d+-\d+/;
@@ -145,11 +185,11 @@ function searchForScoreRows(gameInfoCheerioObj) {
     curMin = minutes;
 
     if(away_team_text.length > 1) {
-      away_score = scoreVals[0];
-      home_score = scoreVals[1];
+      away_score = parseInt(scoreVals[0], 10);
+      home_score = parseInt(scoreVals[1], 10);
     } else {
-      away_score = scoreVals[1];
-      home_score = scoreVals[0];
+      away_score = parseInt(scoreVals[1], 10);
+      home_score = parseInt(scoreVals[0], 10);
     }
     var margin = home_score - away_score;
 
@@ -172,6 +212,7 @@ function searchForScoreRows(gameInfoCheerioObj) {
     margins.push(margin);
     homeFlow.push(home_score);
     awayFlow.push(away_score);
+    offsetFlow.push(Math.min(home_score, away_score));
   });
   console.log('scoreinfo.length = ' + scoreElements.length);
 
@@ -179,7 +220,8 @@ function searchForScoreRows(gameInfoCheerioObj) {
     scoreElements: scoreElements,
     margins: margins,
     awayFlow: awayFlow,
-    homeFlow: homeFlow
+    homeFlow: homeFlow,
+    offsetFlow: offsetFlow
   };
 
   return scoreInfo;

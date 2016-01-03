@@ -50,10 +50,17 @@ angular.module('bewd.nba-vis.flow-controller')
               $interval.cancel(flowLoader);
               flowLoader = $interval(reloadScoreFlow, 10000);
             }
+
             vm.marginData = {
-              type: 'bar',
-              series : [
-                {values: scoreFlowData.margins}
+              "type": 'waterfall',
+              "plot": {
+                'styles': scoreFlowData.margColor
+              },
+              "series": [
+                {
+                  'values': scoreFlowData.margins,
+                  'offset-values': scoreFlowData.offsetFlow
+                }
               ]
             };
             //{ values : [54,23,34,23,43] },
