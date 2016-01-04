@@ -85,7 +85,7 @@ app.get('/:requested_game', function(req, res) {
         away_team: boxScoreResp.away_team,
         home_team: boxScoreResp.home_team,
         score_elements: scoreElements.scoreElements,
-        margins: scoreElements.margins.map(Math.abs),
+        margins: scoreElements.margins,
         homeFlow: scoreElements.homeFlow,
         awayFlow: scoreElements.awayFlow,
         offsetFlow: scoreElements.offsetFlow,
