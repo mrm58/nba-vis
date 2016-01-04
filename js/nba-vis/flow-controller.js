@@ -58,8 +58,8 @@ angular.module('bewd.nba-vis.flow-controller')
               },
               "series": [
                 {
-                  'values': scoreFlowData.margins,
-                  'offset-values': scoreFlowData.offsetFlow
+                  'values': scoreFlowData.margins//,
+                  //'offset-values': scoreFlowData.offsetFlow
                 }
               ]
             };
