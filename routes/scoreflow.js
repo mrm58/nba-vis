@@ -72,7 +72,9 @@ app.get('/:requested_game', function(req, res) {
       console.log('score elements grabbed, length of ' + scoreElements.length);
       var margColor = [];
       for(var idx = 0; idx < scoreElements.margins.length; idx++) {
-        margColor.push((scoreElements.margins[idx] < 0) ? teamColors[boxScoreResp.away_team] : teamColors[boxScoreResp.home_team]);
+        var color = (scoreElements.margins[idx] < 0) ? teamColors[boxScoreResp.away_team] : teamColors[boxScoreResp.home_team];
+        var styleJSON = {"background-color": color};
+        margColor.push(styleJSON);
       }
 
       res.json({
@@ -87,7 +89,9 @@ app.get('/:requested_game', function(req, res) {
         homeFlow: scoreElements.homeFlow,
         awayFlow: scoreElements.awayFlow,
         offsetFlow: scoreElements.offsetFlow,
-        margColor: margColor
+        margColor: margColor,
+        homeColor: teamColors[boxScoreResp.home_team],
+        awayColor: teamColors[boxScoreResp.away_team]
       });
     });
   })

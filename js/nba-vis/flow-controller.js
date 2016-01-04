@@ -52,9 +52,9 @@ angular.module('bewd.nba-vis.flow-controller')
             }
 
             vm.marginData = {
-              "type": 'waterfall',
+              "type": 'bar',
               "plot": {
-                'styles': scoreFlowData.margColor
+                "styles": scoreFlowData.margColor
               },
               "series": [
                 {
