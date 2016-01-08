@@ -51,15 +51,35 @@ angular.module('bewd.nba-vis.flow-controller')
               flowLoader = $interval(reloadScoreFlow, 10000);
             }
 
+
+
             vm.marginData = {
-              "type": 'bar',
+              "type": 'mixed',
               "plot": {
-                "styles": scoreFlowData.margColor
+                'styles': scoreFlowData.margColor,
+                'border-radius': '9px'
               },
               "series": [
                 {
+                  'type': 'bar',
                   'values': scoreFlowData.margins//,
                   //'offset-values': scoreFlowData.offsetFlow
+                },
+                {
+                  'type': 'line',
+                  'line-color': scoreFlowData.homeColor,
+                  'marker': {
+                    'background-color': scoreFlowData.homeColor
+                  },
+                  'values': scoreFlowData.homeFlow
+                },
+                {
+                  'type': 'line',
+                  'line-color': scoreFlowData.awayColor,
+                  'marker': {
+                    'background-color': scoreFlowData.awayColor
+                  },
+                  'values': scoreFlowData.awayFlow
                 }
               ]
             };
