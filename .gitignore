@@ -3,3 +3,5 @@ bower_components
 store
 npm-debug.log
 *.DS_STORE
+images
+*.pptx

@@ -15,8 +15,8 @@ var baseGameUrl = 'http://www.nba.com/games/';
 var logoUrl = 'http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/gameinfo/teamlogos/small/';
 var teamColors = {
   'ATL': '#E13A3E',
-  'BKN': '#008348',
-  'BOS': '#061922',
+  'BKN': '#061922',
+  'BOS': '#008348',
   'CHA': '#1D1160',
   'CHI': '#CE1141',
   'CLE': '#860038',
