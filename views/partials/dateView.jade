@@ -17,7 +17,7 @@ div(ng-show="vm.gameList")
           div.text-left
             img(src="{{vm.logoUrl}}{{game.teams[0].awayTeam}}.gif")
         td.info.col-md-1
-          div.text-center {{game.prd.s}}
+          div(ng-show="game.prd.n > 0").text-center {{game.prd.s}}
           div.text-center at
         td.info.col-md-1
           div.text-right
