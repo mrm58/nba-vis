@@ -59,10 +59,46 @@ angular.module('bewd.nba-vis.flow-controller')
                 'styles': scoreFlowData.margColor,
                 'border-radius': '9px'
               },
+              "scale-x": {
+                  "labels": scoreFlowData.timeStamps,
+                  "max-items": 8,
+                  "zooming": true,
+                  "zoom-snap": true
+              },
+              "scale-y": {
+                  "label": {
+                      "text": "Score Flow",
+                      "fontColor": "#333333"
+                  },
+                  "zooming": true,
+                  "zoom-snap": true
+              },
+              "scale-y-2": {
+                  //"format": "$%v",
+                  "label": {
+                      "text": "Score Margin"
+                  },
+                  //"values": "0:50:5",
+                  "multiplier": true,
+                  "decimals": 0
+              },
+              "scroll-x": {
+                  "bar": {
+                      "height": "10px"
+                      //"background-color": "#eee"
+                  }
+              },
+              "scroll-y": {
+                  "bar": {
+                      "width": "10px"
+                      //"background-color": "#eee"
+                  }
+              },
               "series": [
                 {
                   'type': 'bar',
-                  'values': scoreFlowData.margins//,
+                  'values': scoreFlowData.margins,
+                  "scales": "scale-x,scale-y-2",
                   //'offset-values': scoreFlowData.offsetFlow
                 },
                 {

@@ -91,7 +91,8 @@ app.get('/:requested_game', function(req, res) {
         offsetFlow: scoreElements.offsetFlow,
         margColor: margColor,
         homeColor: teamColors[boxScoreResp.home_team],
-        awayColor: teamColors[boxScoreResp.away_team]
+        awayColor: teamColors[boxScoreResp.away_team],
+        timeStamps: scoreElements.timeStamps
       });
     });
   })
@@ -164,6 +165,7 @@ function searchForScoreRows(gameInfoCheerioObj) {
   var homeFlow = [];
   var awayFlow = [];
   var offsetFlow = [];
+  var timeStamps = [];
   var timestampRE = /\d+:\d+[.]?\d?/;
   var team_textRE = /[A-Z]{3}/;
   var score_textRE = /\d+-\d+/;
@@ -217,6 +219,7 @@ function searchForScoreRows(gameInfoCheerioObj) {
     homeFlow.push(home_score);
     awayFlow.push(away_score);
     offsetFlow.push(Math.min(home_score, away_score));
+    timeStamps.push(timestamp + ' (' + qtr + ')');
   });
   console.log('scoreinfo.length = ' + scoreElements.length);
 
@@ -225,7 +228,8 @@ function searchForScoreRows(gameInfoCheerioObj) {
     margins: margins,
     awayFlow: awayFlow,
     homeFlow: homeFlow,
-    offsetFlow: offsetFlow
+    offsetFlow: offsetFlow,
+    timeStamps: timeStamps
   };
 
   return scoreInfo;
